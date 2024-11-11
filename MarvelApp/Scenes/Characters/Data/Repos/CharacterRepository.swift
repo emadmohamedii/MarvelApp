@@ -10,22 +10,21 @@ import Combine
 import Foundation
 import Common
 
-final class CharacterRepoImpl: CharacterRepoProtocol {
+final class CharacterRepository: CharacterRepositoryFetchable {
     @Injected private var apiClient: APIClientProtocol
-    
-    init() {}
-    
-    func fetchCharacterList(with parameters: CharactersRequest) -> AnyPublisher<CharactersResponse, Error> {
+        
+    func fetchCharacterList(with parameters: CharactersRequest) -> AnyPublisher<[CharacterModel], Error> {
         let configuration = APIRequestConfiguration(
             router: CharactersRouter.chars_listing,
             method: .get(parameters: parameters)
         )
         
-        return Future<CharactersResponse, Error> { promise in
+        return Future<[CharacterModel], Error> { promise in
             self.apiClient.performRequest(with: configuration) { (result: Result<CharactersResponse, Error>) in
                 switch result {
-                case .success(let data):
-                    promise(.success(data))
+                case .success(let response):
+                    let characterModels = response.data?.results?.map { CharacterModel(from: $0) } ?? []
+                    promise(.success(characterModels))
                 case .failure(let error):
                     promise(.failure(error))
                 }

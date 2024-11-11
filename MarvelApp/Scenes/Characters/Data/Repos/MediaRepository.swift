@@ -10,21 +10,20 @@ import Combine
 import Foundation
 import Common
 
-final class MediaRepository: MediaRepoProtocol {
+final class MediaRepository: MediaRepositoryFetchable {
     @Injected private var apiClient: APIClientProtocol
     
-    init() {}
-    
-    func fetchCharacterMedia(with characterId: Int) -> AnyPublisher<CharDetailResponseModel, any Error> {
+    func fetchCharacterMedia(with parameters: MediaRequest) -> AnyPublisher<[CharacterMediaModel], any Error> {
         let configuration = APIRequestConfiguration(
-            router: CharactersRouter.character_comics(characterId: characterId),
+            router: CharactersRouter.character_media(parameters),
             method: .get()
         )
-        return Future<CharDetailResponseModel, Error> { promise in
-            self.apiClient.performRequest(with: configuration) { (result: Result<CharDetailResponseModel, Error>) in
+        return Future<[CharacterMediaModel], Error> { promise in
+            self.apiClient.performRequest(with: configuration) { (result: Result<CharacterMediaResponse, Error>) in
                 switch result {
-                case .success(let data):
-                    promise(.success(data))
+                case .success(let response):
+                    let characterModels = response.data?.results?.map { CharacterMediaModel(from: $0) } ?? []
+                    promise(.success(characterModels))
                 case .failure(let error):
                     promise(.failure(error))
                 }

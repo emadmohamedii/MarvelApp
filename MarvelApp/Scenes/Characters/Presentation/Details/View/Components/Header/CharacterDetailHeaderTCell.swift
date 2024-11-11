@@ -12,34 +12,31 @@ enum CharacterDetailTableCells :String{
     case CharacterDetailComicsTCell
 }
 
-class CharacterDetailHeaderTCell: UITableViewCell {
+final class CharacterDetailHeaderTCell: UITableViewCell {
     
-    @IBOutlet weak var charImgV:UIImageView!
-    @IBOutlet weak var charNameLbl:UILabel!
-    @IBOutlet weak var charDescLbl:UILabel!
-    @IBOutlet weak var charDescStack:UIStackView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet private weak var charImageView: UIImageView!
+    @IBOutlet private weak var charNameLabel: UILabel!
+    @IBOutlet private weak var charDescLabel: UILabel!
+    @IBOutlet private weak var charDescStackView: UIStackView!
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        charNameLabel.text = nil
+        charDescLabel.text = nil
+        charImageView.image = nil
     }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
         
-        // Configure the view for the selected state
-    }
-    
     func configure(image:String?,name:String?,desc:String?){
-        self.charNameLbl.text = name
-        if let desc = desc , !desc.isEmpty {
-            self.charDescLbl.text = desc
-            self.charDescStack.isHidden = false
+        DispatchQueue.main.async {
+            self.charNameLabel.text = name
+            if let desc = desc , !desc.isEmpty {
+                self.charDescLabel.text = desc
+                self.charDescStackView.isHidden = false
+            }
+            else {
+                self.charDescStackView.isHidden = true
+            }
+            self.charImageView.download(with: image ?? "")
         }
-        else {
-            self.charDescStack.isHidden = true
-        }
-        self.charImgV.downloadImageWithCaching(with: image ?? "",placeholderImage: UIImage(named: "test"))
     }
-    
 }

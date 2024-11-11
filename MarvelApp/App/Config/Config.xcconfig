@@ -10,6 +10,23 @@ SCHEME = https
 HOST = gateway.marvel.com
 VERSION = v1
 API_BASE_URL = $(SCHEME):/$()/$(HOST)/$(VERSION)/public
-API_KEY=02c3618f1930f437334368f95ac4fedb
+PUBLIC_API_KEY=02c3618f1930f437334368f95ac4fedb
+PIVATE_API_KEY=8e1e032b76d5555f4ae387eb60d1b2731b7cb81f
+PAGE_LIMIT = 10
+APP_NAME = Marvel
+//
+//  Config.xcconfig
+//  MarvelApp
+//
+//  Created by Emad Habib on 07/11/2024.
+//
+// Configuration settings file format documentation can be found at:
+
+SCHEME = https
+HOST = gateway.marvel.com
+VERSION = v1
+API_BASE_URL = $(SCHEME):/$()/$(HOST)/$(VERSION)/public
+PUBLIC_API_KEY=e83474434bbbb63f8b88f77d12bd792c
+PRIVATE_API_KEY=021d939efafd75f249683446d3ba10287b248b56
 PAGE_LIMIT = 10
 APP_NAME = Marvel

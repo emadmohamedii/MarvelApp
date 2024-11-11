@@ -4,59 +4,59 @@
 //
 //  Created by Emad Habib on 16/09/2023.
 //
-
 import UIKit
-import RxSwift
+import Common
 
-enum CharacterDetailCollectionCells :String{
+
+enum CharacterDetailCollectionCells: String {
     case CharacterDetailComicVCell
 }
 
-class CharacterDetailComicsTCell: UITableViewCell {
-
-    @IBOutlet weak var categoryNameLbl:UILabel!
-    @IBOutlet weak var categoryCollectionView:UICollectionView!
+final class CharacterDetailComicsTCell: UITableViewCell {
     
-    private var disposeBag = DisposeBag()
+    @IBOutlet private weak var categoryNameLabel: UILabel!
+    @IBOutlet weak var categoryCollectionView: UICollectionView!
+    private var collectionViewDataSource: CollectionViewCustomDataSource<CharacterMediaModel>?
+    weak var delegate: CollectionViewCustomDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         setupCollectionView()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        disposeBag = DisposeBag()
+        categoryNameLabel.text = nil
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
 }
 
 extension CharacterDetailComicsTCell {
-    private func setupCollectionView(){
-        self.categoryCollectionView.register(UINib(nibName: CharacterDetailCollectionCells.CharacterDetailComicVCell.rawValue, bundle: nil), forCellWithReuseIdentifier: CharacterDetailCollectionCells.CharacterDetailComicVCell.rawValue)
+    
+    private func setupCollectionView() {
+        categoryCollectionView.register(
+            UINib(nibName: CharacterDetailCollectionCells.CharacterDetailComicVCell.rawValue, bundle: nil),
+            forCellWithReuseIdentifier: CharacterDetailCollectionCells.CharacterDetailComicVCell.rawValue
+        )
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 100, height: 200)
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 5
-        self.categoryCollectionView.setCollectionViewLayout(layout, animated: false)
-        self.categoryCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        categoryCollectionView.dataSource = collectionViewDataSource
+        categoryCollectionView.setCollectionViewLayout(layout, animated: false)
+        categoryCollectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
     
-    func config(viewModel: CharacterDetailComicsViewModel) {
-        self.categoryNameLbl.text = "Comics" // JUST DEFAULT FOR TESTING
-        viewModel.items.drive(categoryCollectionView.rx.items) { collectionView, index, element in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharacterDetailComicVCell", for: IndexPath(row: index, section: 0)) as! CharacterDetailComicVCell
-            cell.configureCell(comic: element)
-            return cell
-        }.disposed(by: disposeBag)
-        viewModel.fetchData()
+    func setupParameters(itemlist: [CharacterMediaModel], type: MediaType) {
+        if categoryCollectionView.dataSource == nil {
+            // Create and assign the custom data source for the collection view
+            collectionViewDataSource = CollectionViewCustomDataSource.displayData(for: itemlist, delegate: delegate)
+            categoryCollectionView.dataSource = collectionViewDataSource
+            categoryCollectionView.delegate = collectionViewDataSource
+            DispatchQueue.main.async {
+                self.categoryNameLabel.text = type.title
+                self.categoryCollectionView.reloadData()
+            }
+        }
     }
 }

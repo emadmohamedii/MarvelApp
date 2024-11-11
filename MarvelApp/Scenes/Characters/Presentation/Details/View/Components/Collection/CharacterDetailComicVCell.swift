@@ -7,18 +7,21 @@
 
 import UIKit
 
-class CharacterDetailComicVCell: UICollectionViewCell {
+final class CharacterDetailComicVCell: UICollectionViewCell {
 
-    @IBOutlet weak var comicImgV:UIImageView!
-    @IBOutlet weak var comicNameLbl:UILabel!
+    @IBOutlet private weak var comicImageView: UIImageView!
+    @IBOutlet private weak var comicNameLabel: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        comicNameLabel.text = nil
+        comicImageView.image = nil
     }
     
-    func configureCell(comic:ComicModel) {
-        self.comicNameLbl.text = comic.name
-        self.comicImgV.download(with: comic.image,placeholderImage: UIImage(named: "test"))
+    func configureCell(media:CharacterMediaModel) {
+        DispatchQueue.main.async {
+            self.comicNameLabel.text = media.name
+            self.comicImageView.download(with: media.imageURL ?? "")
+        }
     }
 }

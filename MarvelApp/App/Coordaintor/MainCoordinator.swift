@@ -7,40 +7,33 @@
 
 import Foundation
 import Common
+import CommonUI
 import UIKit
 
 public enum AppChildCoordinator {
-    case signed
-    // case signUp, login, onboarding, etc
+    case chars
 }
-public class AppDIContainer {
-    
-}
+
 public class AppCoordinator: Coordinator {
     
     private let window: UIWindow
     private var childCoordinators = [AppChildCoordinator: Coordinator]()
-    private let appDIContainer: AppDIContainer
+    private var navigationController: UINavigationController
     
     // MARK: - Initializer
-    public init(window: UIWindow, appDIContainer: AppDIContainer) {
+    public init(window: UIWindow) {
         self.window = window
-        self.appDIContainer = appDIContainer
+        navigationController = UINavigationController()
+        navigationController.setupNavigationBarAppearance()
     }
     
     public func start() {
-        navigateToSignedFlow()
+        navigateToCharsFlow()
     }
     
-    fileprivate func navigateToSignedFlow() {
-        //    let tabBar = UITabBarController()
-        //    let coordinator = SignedCoordinator(tabBarController: tabBar,
-        //                                        appDIContainer: appDIContainer)
-        //
-        //    self.window.rootViewController = tabBar
-        //    self.window.makeKeyAndVisible()
-        //
-        //    childCoordinators[.signed] = coordinator
-        //    coordinator.start()
+    fileprivate func navigateToCharsFlow() {
+        let coordinator = CharacterCoordinator(window: window, navigationController: navigationController)
+        childCoordinators[.chars] = coordinator
+        coordinator.start()
     }
 }

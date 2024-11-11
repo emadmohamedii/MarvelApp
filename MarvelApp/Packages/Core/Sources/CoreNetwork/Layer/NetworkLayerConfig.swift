@@ -9,31 +9,32 @@ import Foundation
 import Alamofire
 
 public protocol NetworkLayerConfigProtocol {
-    init(baseUrl: String,
-         token: String)
-    func getToken() -> String
-    func updateToken(_ token: String)
-    func getBaseUrl() -> String
+    var apiBaseURL: String {get}
+    var publicApiKey: String {get}
+    var privateApiKey: String {get}
 }
 
 final public class NetworkLayerConfig: NetworkLayerConfigProtocol {
-    // MARK: Properites
-    private let baseUrl: String
-    private var token: String
-    // MARK: initializer to enforce singleton pattern
-    public init(baseUrl: String, token: String) {
-        self.baseUrl = baseUrl
-        self.token = token
-    }
+    public init() {}
     
-    public func getBaseUrl() -> String {
-        baseUrl
-    }
-    public func getToken() -> String {
-        token
-    }
+    lazy public var publicApiKey: String = {
+        guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "PUBLIC_API_KEY") as? String else {
+            fatalError("ApiKey must not be empty in plist")
+        }
+        return apiKey
+    }()
     
-    public func updateToken(_ token: String) {
-        self.token = token
-    }
+    lazy public var privateApiKey: String = {
+        guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "PRIVATE_API_KEY") as? String else {
+            fatalError("ApiKey must not be empty in plist")
+        }
+        return apiKey
+    }()
+    
+    lazy public var apiBaseURL: String = {
+        guard let apiBaseString = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String else {
+            fatalError("ApiBaseURL must not be empty in plist")
+        }
+        return apiBaseString
+    }()
 }

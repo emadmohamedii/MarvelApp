@@ -7,11 +7,13 @@
 
 import UIKit
 
-class CharacterMediaVCell: UICollectionViewCell {
+final class CharacterMediaVCell: UICollectionViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet private weak var mediaTitleLabel: UILabel!
+    @IBOutlet private weak var mediaImageView: UIImageView!
+    
+    func configure(media: CharacterMediaModel) {
+        mediaTitleLabel.text = media.name
+        mediaImageView.download(with: media.imageURL ?? "")
     }
-
 }
