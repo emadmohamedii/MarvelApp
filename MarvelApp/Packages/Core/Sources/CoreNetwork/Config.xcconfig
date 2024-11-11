@@ -1,0 +1,16 @@
+//
+//  Config.xcconfig
+//  MarvelApp
+//
+//  Created by Emad Habib on 07/11/2024.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+SLASH = /
+
+API_BASE_URL=https:$(SLASH)/api.themoviedb.org
+
+API_KEY=06e1a8c1f39b7a033e2efb972625fee2
+
+IMAGE_BASE_URL=https:$(SLASH)/image.tmdb.org

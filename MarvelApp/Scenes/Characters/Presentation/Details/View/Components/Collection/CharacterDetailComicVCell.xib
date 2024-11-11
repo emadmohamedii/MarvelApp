@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CharacterDetailComicVCell" customModule="MApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="138" height="192"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="138" height="192"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eLS-b5-42T">
+                        <rect key="frame" x="0.0" y="0.0" width="138" height="192"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="Gem-eG-gQU">
+                                <rect key="frame" x="0.0" y="0.0" width="138" height="153.66666666666666"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UIW-E7-DWe">
+                                <rect key="frame" x="10" y="155.66666666666666" width="118" height="34.333333333333343"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="UIW-E7-DWe" firstAttribute="leading" secondItem="eLS-b5-42T" secondAttribute="leading" constant="10" id="A1P-uN-NzE"/>
+                            <constraint firstAttribute="bottom" secondItem="UIW-E7-DWe" secondAttribute="bottom" constant="2" id="Bld-Xg-xKK"/>
+                            <constraint firstAttribute="trailing" secondItem="UIW-E7-DWe" secondAttribute="trailing" constant="10" id="Rte-gL-RDE"/>
+                            <constraint firstAttribute="trailing" secondItem="Gem-eG-gQU" secondAttribute="trailing" id="foo-K3-D38"/>
+                            <constraint firstItem="Gem-eG-gQU" firstAttribute="leading" secondItem="eLS-b5-42T" secondAttribute="leading" id="nOJ-Gt-Alc"/>
+                            <constraint firstItem="Gem-eG-gQU" firstAttribute="height" secondItem="eLS-b5-42T" secondAttribute="height" multiplier="0.8" id="qJj-MC-nkx"/>
+                            <constraint firstItem="Gem-eG-gQU" firstAttribute="top" secondItem="eLS-b5-42T" secondAttribute="top" id="tg4-Vp-wuD"/>
+                            <constraint firstItem="UIW-E7-DWe" firstAttribute="top" secondItem="Gem-eG-gQU" secondAttribute="bottom" constant="2" id="ueU-QQ-CGd"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="eLS-b5-42T" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="29A-0F-28r"/>
+                <constraint firstItem="eLS-b5-42T" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="5eE-E8-KEa"/>
+                <constraint firstAttribute="trailing" secondItem="eLS-b5-42T" secondAttribute="trailing" id="cLy-ia-QlY"/>
+                <constraint firstAttribute="bottom" secondItem="eLS-b5-42T" secondAttribute="bottom" id="eC7-0q-jCj"/>
+            </constraints>
+            <size key="customSize" width="138" height="192"/>
+            <connections>
+                <outlet property="comicImgV" destination="Gem-eG-gQU" id="Ww4-ep-gxz"/>
+                <outlet property="comicNameLbl" destination="UIW-E7-DWe" id="uGs-i5-DWw"/>
+            </connections>
+            <point key="canvasLocation" x="195.41984732824426" y="38.732394366197184"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="test" width="480" height="310"/>
+    </resources>
+</document>

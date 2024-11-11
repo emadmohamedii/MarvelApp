@@ -1,0 +1,15 @@
+//
+//  Config.xcconfig
+//  MarvelApp
+//
+//  Created by Emad Habib on 07/11/2024.
+//
+// Configuration settings file format documentation can be found at:
+
+SCHEME = https
+HOST = gateway.marvel.com
+VERSION = v1
+API_BASE_URL = $(SCHEME):/$()/$(HOST)/$(VERSION)/public
+API_KEY=02c3618f1930f437334368f95ac4fedb
+PAGE_LIMIT = 10
+APP_NAME = Marvel
